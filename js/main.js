@@ -10,6 +10,7 @@ var wordsInUse = [];
 var wordsForUse = [];
 var isPlaying = false;
 var requestCount = 0;
+var savedCheckedWords = [];
 
   refillBuffer();
   $("#start-btn").on("click", startGame);
@@ -17,7 +18,7 @@ var requestCount = 0;
   function refillBuffer(){
     for (var i = (bufferSize - randomWords.length); i >= 0; i--) {
       getRandomWord();
-      console.log("randomWord: "+randomWords.length);
+    //  console.log("randomWord: "+randomWords.length);
 
       if(randomWords.length >= bufferSize || requestCount >= bufferSize){
         console.log("break");
@@ -38,7 +39,7 @@ var requestCount = 0;
   }
 
   function randomWordReceived(data){
-    console.log("randomWord randomWordReceived: "+randomWords.length+" "+wordsForUse.length+ " "+wordsInUse.length);
+  //  console.log("randomWord randomWordReceived: "+randomWords.length+" "+wordsForUse.length+ " "+wordsInUse.length);
     requestCount --;
     if(randomWords.indexOf(data.Word) == -1){
       randomWords.push(data.Word);
@@ -74,6 +75,8 @@ var requestCount = 0;
   }
 
   function refreshWwords(){
+    updateSavedWords();
+
 
     if(randomWords.length >= wordCount && wordsForUse.length < wordCount){
       wordsForUse = randomWords.slice(0, wordCount);
@@ -85,6 +88,12 @@ var requestCount = 0;
     var wordGrid = getWordGrid();
     $("#main-body").append(wordGrid);
     addNextBtn();
+  }
+
+  function updateSavedWords(){
+    savedCheckedWords = savedCheckedWords.concat(getCheckedWords());
+    $("#word-count").html("Words: "+savedCheckedWords.length);
+    console.log("savedCheckedWords: "+savedCheckedWords);
   }
 
   function addNextBtn(){
@@ -125,7 +134,7 @@ var requestCount = 0;
 
     console.log("in use: "+wordsInUse.length);
     if(wordsForUse.length >= wordCount){
-      wordsForUse.length = 0 ;
+      wordsForUse.length = 0;
     }
 
     return wordGridContainer;
@@ -136,9 +145,10 @@ var requestCount = 0;
     var words = [];
       $("input:checked").each(function(){
         words.push($(this).parent().text());
-          //console.log("checkedWord: "+$(this).parent().html()+$(this).prop('checked'));
+          console.log("checkedWord: "+$(this).parent().text()+$(this).prop('checked'));
 
-       })
+       });
+       return words;
        console.log("checkedWords: "+words);
   }
 
