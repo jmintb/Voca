@@ -3,7 +3,7 @@
 
 
 $(document).ready(function() {
-var wordCount = 40;
+var wordCount = 20;
 var bufferSize = 300;
 var randomWords = [];
 var wordsInUse = [];
