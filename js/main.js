@@ -11,49 +11,21 @@ var wordsForUse = [];
 var isPlaying = false;
 var requestCount = 0;
 var savedCheckedWords = [];
+var tenKWords = [];
+
+tenKWords = wordPool.split(" ");
 
   refillBuffer();
   $("#start-btn").on("click", startGame);
 
   function refillBuffer(){
-    for (var i = (bufferSize - randomWords.length); i >= 0; i--) {
-      getRandomWord();
-    //  console.log("randomWord: "+randomWords.length);
-
-      if(randomWords.length >= bufferSize || requestCount >= bufferSize){
-        console.log("break");
-      break;
-    }
-  }
-  }
-  //getCheckedWords();
-
-
-
-  function getRandomWord(){
-    var API_URL = "http://randomword.setgetgo.com/get.php";
-      $.get(API_URL, randomWordReceived, "jsonp");
-      requestCount ++;
-
+    randomWords = tenKWords.slice(0, bufferSize-1);
+    tenKWords.splice(0, bufferSize-1);
+    console.log("refillBuffer: "+randomWords.length+" "+tenKWords.length);
 
   }
 
-  function randomWordReceived(data){
-  //  console.log("randomWord randomWordReceived: "+randomWords.length+" "+wordsForUse.length+ " "+wordsInUse.length);
-    requestCount --;
-    if(randomWords.indexOf(data.Word) == -1){
-      randomWords.push(data.Word);
-    }
 
-    if (wordsForUse.length < wordCount) {
-      wordsForUse.push(data.Word);
-    } else if(wordsInUse.length < wordCount && wordsForUse.length >= wordCount && isPlaying){
-      refreshWwords();
-    }
-
-
-
-  }
 
 
   function startGame(){
@@ -61,10 +33,9 @@ var savedCheckedWords = [];
     isPlaying = true;
     refreshWwords();
 
-
-
-
   }
+
+
 
   function showResult(){
 
@@ -77,11 +48,7 @@ var savedCheckedWords = [];
   function refreshWwords(){
     updateSavedWords();
 
-
-    if(randomWords.length >= wordCount && wordsForUse.length < wordCount){
-      wordsForUse = randomWords.slice(0, wordCount);
-      randomWords = randomWords.splice(wordCount-1, randomWords.length-1);
-    } else{
+    if(randomWords.length < wordCount ){
     refillBuffer();
   }
     $("#main-body").empty();
@@ -103,8 +70,6 @@ var savedCheckedWords = [];
     $(nextBtn).attr('id', 'next-primary');
     $(nextBtn).on('click', refreshWwords);
     $("#main-body").append(nextBtn);
-    if(wordsInUse.length != 0) randomWords.splice(0, wordCount-1);
-    refillBuffer();
   }
 
   function getWordGrid(){
@@ -119,8 +84,8 @@ var savedCheckedWords = [];
     //console.log(wordArr);
     for(var i = 0; i < wordCount; i ++){
 
-      var word = wordsForUse[i];
-      if(wordsForUseLength < wordCount){
+      var word = randomWords[i];
+      if(randomWords.length < wordCount){
         word = loadingIcon;
       } else{
         wordsInUse.push(word);
@@ -129,14 +94,9 @@ var savedCheckedWords = [];
       var wordGridItem = '  <li id="word-grid-item" class="checkbox "> '+
       ' <label class="btn-default btn" > <input type="checkbox"> '+word+' </label> </li> ';
       $(wordGridContainer).html($(wordGridContainer).html() + wordGridItem);
-    //  randomWords.splice(i, 1);
-    }
 
-    console.log("in use: "+wordsInUse.length);
-    if(wordsForUse.length >= wordCount){
-      wordsForUse.length = 0;
     }
-
+      randomWords.splice(0, wordCount);
     return wordGridContainer;
 
   }
