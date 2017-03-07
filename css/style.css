@@ -1,5 +1,4 @@
 html, body{
-
 }
 
 .flex-container{
@@ -22,8 +21,7 @@ h2{
 
 #main-body{
   flex-direction: column;
-
-
+  background-color: red;
 }
 
 #word-grid-container{
@@ -32,9 +30,8 @@ h2{
   align-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  max-height: 35em;
+  height: 50vh;
 }
-
 #word-grid-item{
   height: 2em;
   width: 5em;
