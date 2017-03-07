@@ -32,7 +32,7 @@ h2{
   align-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  max-height: 350em;
+  max-height: 35em;
 }
 
 #word-grid-item{
