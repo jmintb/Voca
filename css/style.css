@@ -19,9 +19,20 @@ h2{
   color: blue;
 }
 
+.top-bar{
+  height: 4vh;
+  text-align: center;
+  font-size: 4vh;
+  height: auto;
+  margin: 4vh;
+}
+
+#start-btn{
+  font-size: 4vh;
+}
+
 #main-body{
   flex-direction: column;
-  background-color: red;
 }
 
 #word-grid-container{
@@ -30,19 +41,31 @@ h2{
   align-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
-  height: 50vh;
+  height: 55vh;
+
 }
 #word-grid-item{
-  height: 2em;
-  width: 5em;
-  margin: 1.7em;
+  height: 2vh;
+  width: 15vh;
+  margin: 1.7vh;
 }
 
-#title{
+#word-grid-label{
+  width: 100%;
+  text-align: left;
+  padding-left: 3vh;
+  font-size: 1.5em;
 }
 
-#start-btn{
+#checkbox-input{
+  position: absolute;
+  top: 50%;
+  height: 100%;
+  vertical-align: bottom;;
+
 }
+
+
 
 .glyphicon-refresh-animate{
   -animation: spin .7s infinite linear;

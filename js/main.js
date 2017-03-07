@@ -92,7 +92,7 @@ tenKWords = wordPool.split(" ");
       }
 
       var wordGridItem = '  <li id="word-grid-item" class="checkbox "> '+
-      ' <label class="btn-default btn" > <input type="checkbox"> '+word+' </label> </li> ';
+      ' <label id="word-grid-label" class="btn-default btn" > <input id="checkbox-input" type="checkbox"> '+word+' </label> </li> ';
       $(wordGridContainer).html($(wordGridContainer).html() + wordGridItem);
 
     }
